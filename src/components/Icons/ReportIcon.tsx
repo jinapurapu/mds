@@ -18,7 +18,7 @@ import * as React from "react";
 import { SVGProps } from "react";
 
 const ReportIcon = (props: SVGProps<SVGSVGElement>) => (
-    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"  viewBox="0 0 256 256">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"  >
    
     <g id="TenantsReport_1" data-name="TenantsReport – 1" clip-path="url(#clip-TenantsReport_1)">
      
