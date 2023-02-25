@@ -19,11 +19,7 @@ import { SVGProps } from "react";
 
 const ReportIcon = (props: SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"  viewBox="0 0 256 256">
-    <defs>
-      <clipPath id="clip-TenantsReport_1">
-        <rect width="256" height="256"/>
-      </clipPath>
-    </defs>
+   
     <g id="TenantsReport_1" data-name="TenantsReport – 1" clip-path="url(#clip-TenantsReport_1)">
       <rect width="256" height="256" fill="#fff"/>
       <g id="Grupo_5574" data-name="Grupo 5574" transform="translate(-0.11 -0.409)">
