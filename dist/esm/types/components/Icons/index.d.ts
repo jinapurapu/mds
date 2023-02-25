@@ -8,6 +8,7 @@ export { default as VersionIcon } from "./VersionIcon";
 export { default as LambdaBalloonIcon } from "./LambdaBalloonIcon";
 export { default as HelpIconFilled } from "./HelpIconFilled";
 export { default as ShareIcon } from "./ShareIcon";
+export { default as ReportIcon } from "./ReportIcon";
 export { default as EditIcon } from "./EditIcon";
 export { default as JSONIcon } from "./JSONIcon";
 export { default as SearchIcon } from "./SearchIcon";
