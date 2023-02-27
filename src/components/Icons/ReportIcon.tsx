@@ -19,8 +19,9 @@ import { SVGProps } from "react";
 
 const ReportIcon = (props: SVGProps<SVGSVGElement>) => (
     <svg xmlns="http://www.w3.org/2000/svg" 
+    xmlnsXlink="http://www.w3.org/1999/xlink"
     className={`min-icon`} 
-    viewBox="0 0 9.008 12"  
+    viewBox="0 0 256 256"
     {...props}
     >
    
