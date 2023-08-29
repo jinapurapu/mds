@@ -18,7 +18,7 @@ import React from "react";
 
 export interface HelpTipProps {
   children: React.ReactElement;
-  helptip: React.ReactNode;
+  helptip: React.ReactElement;
   errorProps?: any;
   placement?: "bottom" | "left" | "right" | "top";
 }

@@ -19,6 +19,8 @@ import React, {
   FC,
   Fragment,
   HTMLAttributes,
+  useEffect,
+  useRef,
   useState,
 } from "react";
 import styled, { css, keyframes } from "styled-components";
@@ -29,6 +31,7 @@ import {
   HelpTipConstructProps,
   HelpTipProps,
 } from "./HelpTip.types";
+import HelpBox from "../HelpBox/HelpBox";
 
 const opacityAnimation = keyframes`
   from {
@@ -135,7 +138,7 @@ const TooltipItem = styled.div<HelpTipBuild>(({ theme, placement }) => {
   };
 });
 
-const TooltipElement: FC<HelpTipConstructProps> = ({
+const HelptipElement: FC<HelpTipConstructProps> = ({
   placement,
   content,
   anchorEl,
@@ -211,7 +214,7 @@ const TooltipElement: FC<HelpTipConstructProps> = ({
 
   return (
     <TooltipItem placement={calculatedPlacement} style={position}>
-      {content} I'm a helptip!
+      {content} 
     </TooltipItem>
   );
 };
@@ -226,33 +229,80 @@ const HelpTip: FC<HelpTipProps> = ({
     (EventTarget & HTMLSpanElement) | null
   >(null);
   const [helptipVisible, setHelptipVisible] = useState<boolean>(false);
+  const [helptipOpen, setHelptipOpen] = useState<boolean>(false);
+  const [hoverLock, setHoverLock] = useState<boolean>(false);
 
-  if (helptip === "") {
+  if (helptip === null) {
     return (
       <Fragment>
         {errorProps ? cloneElement(children, { ...errorProps }) : children}
       </Fragment>
     );
   }
+const handlePointerLeave = () => {
+  helptipOpen ? 
+  setTimeout(() => {setHelptipVisible(false);
+    setHoverLock(false);
+  setHelptipOpen(false)}, 5000) :
+  setTimeout(() => {setHelptipVisible(false);}, 1000)
+}
+
+const handleClick =() =>{
+  setHelptipVisible(!helptipVisible);
+  setHelptipOpen(!helptipOpen);
+  setHoverLock(true);
+}
+
+function useOutsideAlerter(ref: any) {
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setHelptipOpen(false);
+        setHoverLock(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]);
+}
+const wrapperRef = useRef(null);
+useOutsideAlerter(wrapperRef);
 
   return (
     <Fragment>
       <TooltipWrapper
+      ref={wrapperRef}
+      onClick={
+       handleClick
+      }
         onPointerEnter={(event) => {
+          if (!hoverLock)  {
           setAnchorEl(event.currentTarget);
           setHelptipVisible(true);
+        }
         }}
-        onPointerLeave={() => {
-          setHelptipVisible(false);
-        }}
+        onMouseLeave={handlePointerLeave}
       >
         {errorProps ? cloneElement(children, { ...errorProps }) : children}
-        {helptipVisible &&
+        {helptipVisible && !hoverLock &&
           createPortal(
-            <TooltipElement
+            <HelptipElement
               placement={placement}
-              content={helptip}
+              content={"Click me!"}
               anchorEl={anchorEl}
+            />,
+            document.body,
+          )}
+           {helptipOpen &&
+          createPortal(
+            <HelptipElement
+              placement={placement}
+              content={<HelpBox title={"I'm an open Helptip!"} help={"I'm helpful text!"}/>}
+              anchorEl={anchorEl}
+              
             />,
             document.body,
           )}
