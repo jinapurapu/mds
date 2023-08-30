@@ -32,6 +32,8 @@ import {
   HelpTipProps,
 } from "./HelpTip.types";
 import HelpBox from "../HelpBox/HelpBox";
+import Grid from "../Grid/Grid";
+import { HelpIcon, HelpIconFilled } from "../Icons";
 
 const opacityAnimation = keyframes`
   from {
@@ -213,11 +215,39 @@ const HelptipElement: FC<HelpTipConstructProps> = ({
   }
 
   return (
-    <TooltipItem placement={calculatedPlacement} style={position}>
+    <TooltipItem placement={calculatedPlacement} style={position} >
       {content} 
     </TooltipItem>
   );
 };
+
+
+const BaseHelpTip = styled.div(({ theme }) => ({
+  border: `1px solid ${get(theme, "borderColor", "#E2E2E2")}`,
+  borderRadius: 2,
+  backgroundColor: get(theme, "boxBackground", "#FBFAFA"),
+  paddingLeft: 25,
+  paddingTop: 20,
+  paddingBottom: 20,
+  paddingRight: 30,
+  "& .leftItems": {
+    fontSize: 16,
+    fontWeight: "bold",
+    display: "flex",
+    alignItems: "center",
+    "& .min-icon": {
+      marginRight: 15,
+      height: 28,
+      width: 38,
+    },
+  },
+  "& .helpText": {
+    fontSize: 10,
+    paddingLeft: 5,
+    marginTop: 15,
+    color: "black",
+  },
+}));
 
 const HelpTip: FC<HelpTipProps> = ({
   children,
@@ -230,7 +260,7 @@ const HelpTip: FC<HelpTipProps> = ({
   >(null);
   const [helptipVisible, setHelptipVisible] = useState<boolean>(false);
   const [helptipOpen, setHelptipOpen] = useState<boolean>(false);
-  const [hoverLock, setHoverLock] = useState<boolean>(false);
+  //const [hoverLock, setHoverLock] = useState<boolean>(false);
 
   if (helptip === null) {
     return (
@@ -242,23 +272,34 @@ const HelpTip: FC<HelpTipProps> = ({
 const handlePointerLeave = () => {
   helptipOpen ? 
   setTimeout(() => {setHelptipVisible(false);
-    setHoverLock(false);
+  //  setHoverLock(false);
   setHelptipOpen(false)}, 5000) :
   setTimeout(() => {setHelptipVisible(false);}, 1000)
 }
 
 const handleClick =() =>{
-  setHelptipVisible(!helptipVisible);
-  setHelptipOpen(!helptipOpen);
-  setHoverLock(true);
+  if (helptipOpen) {
+    setHelptipOpen(true)
+    setHelptipVisible(false)
+  }
+  else  {
+  setHelptipVisible(false);
+  setHelptipOpen(true);
+  }
+ // setHoverLock(true);
 }
+
+const tempHelpTip = 
+<Fragment>
+  <h1>I'm a helptip!</h1>
+</Fragment>
 
 function useOutsideAlerter(ref: any) {
   useEffect(() => {
     function handleClickOutside(event: any) {
       if (ref.current && !ref.current.contains(event.target)) {
         setHelptipOpen(false);
-        setHoverLock(false);
+       // setHoverLock(false);
       }
     }
 
@@ -279,7 +320,7 @@ useOutsideAlerter(wrapperRef);
        handleClick
       }
         onPointerEnter={(event) => {
-          if (!hoverLock)  {
+          if (!helptipOpen)  {
           setAnchorEl(event.currentTarget);
           setHelptipVisible(true);
         }
@@ -287,7 +328,7 @@ useOutsideAlerter(wrapperRef);
         onMouseLeave={handlePointerLeave}
       >
         {errorProps ? cloneElement(children, { ...errorProps }) : children}
-        {helptipVisible && !hoverLock &&
+        {helptipVisible && !helptipOpen &&
           createPortal(
             <HelptipElement
               placement={placement}
@@ -300,7 +341,22 @@ useOutsideAlerter(wrapperRef);
           createPortal(
             <HelptipElement
               placement={placement}
-              content={<HelpBox title={"I'm an open Helptip!"} help={"I'm helpful text!"}/>}
+              content={ <BaseHelpTip className={"helpbox-container"} ref={wrapperRef}>
+              <Grid container>
+                <Grid item xs={12} className={"leftItems"}>
+                  
+                  {/*
+                  {iconComponent || null}
+                  {title}
+          */}
+                </Grid>
+              
+                  <Grid item xs={12} className={"helpText"}>
+                    {tempHelpTip}
+                  </Grid>
+              
+              </Grid>
+            </BaseHelpTip>} //<HelpBox title={"I'm an open Helptip!"} help={"I'm helpful text!"}/>}
               anchorEl={anchorEl}
               
             />,
