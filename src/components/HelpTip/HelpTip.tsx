@@ -242,7 +242,7 @@ const BaseHelpTip = styled.div(({ theme }) => ({
 }));
 
 const HelpTip: FC<HelpTipProps> = ({
-  children,
+
   helptip,
   errorProps,
   placement = "bottom",
@@ -253,13 +253,7 @@ const HelpTip: FC<HelpTipProps> = ({
   const [helptipVisible, setHelptipVisible] = useState<boolean>(false);
   const [helptipOpen, setHelptipOpen] = useState<boolean>(false);
 
-  if (helptip === null) {
-    return (
-      <Fragment>
-        {errorProps ? cloneElement(children, { ...errorProps }) : children}
-      </Fragment>
-    );
-  }
+ 
 const handlePointerLeave = () => {
   helptipOpen ? 
   setTimeout(() => {
@@ -481,7 +475,7 @@ useOutsideAlerter(wrapperRef);
         }}
         onMouseLeave={handlePointerLeave}
       >
-        {errorProps ? cloneElement(children, { ...errorProps }) : children}
+   
         {helptipVisible && !helptipOpen &&
           createPortal(
             <HelptipTarget
