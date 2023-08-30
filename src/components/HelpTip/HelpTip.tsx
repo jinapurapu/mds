@@ -31,9 +31,8 @@ import {
   HelpTipConstructProps,
   HelpTipProps,
 } from "./HelpTip.types";
-import HelpBox from "../HelpBox/HelpBox";
 import Grid from "../Grid/Grid";
-import { HelpIcon, HelpIconFilled } from "../Icons";
+import {  HelpIconFilled } from "../Icons";
 
 const opacityAnimation = keyframes`
   from {
@@ -140,6 +139,78 @@ const TooltipItem = styled.div<HelpTipBuild>(({ theme, placement }) => {
   };
 });
 
+const HelpTargetItem = styled.div<HelpTipBuild>(({ theme, placement }) => {
+  const tooltipArrowSize = "6px";
+
+  const background = get(theme, "tooltip.background", "#737373");
+
+  let placementPosition = {};
+  const beforePosition = {
+    content: "' '",
+    left: "50%",
+    height: 0,
+    width: 0,
+    position: "absolute",
+    pointerEvents: "none",
+    marginLeft: `calc(${tooltipArrowSize} * -1);`,
+  };
+
+  switch (placement) {
+    case "top":
+      placementPosition = {
+        transform: "translateX(-50%) translateY(-50%)",
+        "&::before": {
+          ...beforePosition,
+          top: "100%",
+          borderTopColor: background,
+        },
+      };
+      break;
+    case "right":
+      placementPosition = {
+        transform: "translateX(0) translateY(-50%)",
+        "&::before": {
+          ...beforePosition,
+          left: `calc(${tooltipArrowSize} * -1)`,
+          top: "50%",
+          transform: "translateX(0) translateY(-50%)",
+          borderRightColor: background,
+        },
+      };
+      break;
+    case "left":
+      placementPosition = {
+        transform: "translateX(-100%) translateY(-50%)",
+        "&::before": {
+          ...beforePosition,
+          left: "auto",
+          right: `calc(${tooltipArrowSize} * -2)`,
+          top: "50%",
+          transform: "translateX(0) translateY(-50%)",
+          borderLeftColor: background,
+        },
+      };
+      break;
+    default:
+      placementPosition = {
+        transform: "translateX(-50%)",
+        "&::before": {
+          ...beforePosition,
+          bottom: "100%",
+          borderBottomColor: background,
+        },
+      };
+  }
+
+  return {
+    position: "fixed",
+    color: background,
+    zIndex: 10001,
+    ...placementPosition,
+  };
+});
+
+
 
 
 
@@ -181,7 +252,6 @@ const HelpTip: FC<HelpTipProps> = ({
   >(null);
   const [helptipVisible, setHelptipVisible] = useState<boolean>(false);
   const [helptipOpen, setHelptipOpen] = useState<boolean>(false);
-  //const [hoverLock, setHoverLock] = useState<boolean>(false);
 
   if (helptip === null) {
     return (
@@ -192,22 +262,20 @@ const HelpTip: FC<HelpTipProps> = ({
   }
 const handlePointerLeave = () => {
   helptipOpen ? 
-  setTimeout(() => {setHelptipVisible(false);
-  //  setHoverLock(false);
-  setHelptipOpen(false)}, 5000) :
-  setTimeout(() => {setHelptipVisible(false);}, 1000)
+  setTimeout(() => {
+    setHelptipVisible(false);
+    setHelptipOpen(false);
+  }, 5000) :
+ setTimeout(() => {
+    setHelptipVisible(false);
+  }, 1000)
 }
 
 const handleClick =() =>{
-  if (helptipOpen) {
-    setHelptipOpen(true)
-    setHelptipVisible(false)
-  }
-  else  {
-  setHelptipVisible(false);
+  if (!helptipOpen) {
+    setHelptipVisible(false);
   setHelptipOpen(true);
   }
- // setHoverLock(true);
 }
 
 const HelptipElement: FC<HelpTipConstructProps> = ({
@@ -291,9 +359,91 @@ const HelptipElement: FC<HelpTipConstructProps> = ({
   );
 };
 
+const HelptipTarget: FC<HelpTipConstructProps> = ({
+  placement,
+  content,
+  anchorEl,
+}) => {
+  let position = {};
+  let calculatedPlacement = placement;
+  const boundYLimit = 45;
+  const boundXLimit = 175;
+
+  if (anchorEl) {
+    const bounds = anchorEl.getBoundingClientRect();
+    const windowWidth = document.documentElement.offsetWidth;
+    const windowHeight = document.documentElement.offsetHeight;
+
+    switch (placement) {
+      case "bottom":
+        const calcPosition = bounds.top + bounds.height + boundYLimit;
+
+        if (calcPosition > windowHeight) {
+          calculatedPlacement = "top";
+        }
+        break;
+      case "left":
+        const calcInitPosition = bounds.left - boundXLimit;
+
+        if (calcInitPosition < 0) {
+          calculatedPlacement = "right";
+        }
+
+        break;
+      case "right":
+        const calcEndPosition = bounds.left + bounds.width + boundXLimit;
+
+        if (calcEndPosition > windowWidth) {
+          calculatedPlacement = "left";
+        }
+        break;
+      case "top":
+        if (bounds.top < boundYLimit) {
+          calculatedPlacement = "bottom";
+        }
+
+        break;
+    }
+
+    switch (calculatedPlacement) {
+      case "bottom":
+        position = {
+          top: bounds.top + bounds.height + 10,
+          left: bounds.left + bounds.width / 2,
+        };
+        break;
+      case "left":
+        position = {
+          top: bounds.top + bounds.height / 2,
+          left: bounds.left - 12,
+        };
+        break;
+      case "right":
+        position = {
+          top: bounds.top + bounds.height / 2,
+          left: bounds.left + bounds.width + 12,
+        };
+        break;
+      case "top":
+        position = {
+          top: bounds.top - bounds.height / 2 - 10,
+          left: bounds.left + bounds.width / 2,
+        };
+        break;
+    }
+  }
+
+  return (
+    <HelpTargetItem placement={calculatedPlacement}  style={position}  onClick={handleClick}>
+
+  <HelpIconFilled style={{width: 12, height: 12}}/>
+      </HelpTargetItem>
+  
+  );
+};
+
 const tempHelpTip = 
 <Fragment>
-  <HelpIconFilled />
   <h1>I'm a helptip!
     <br/>
   <a href="https://min.io" target="self">Link to MinIO</a>
@@ -334,10 +484,9 @@ useOutsideAlerter(wrapperRef);
         {errorProps ? cloneElement(children, { ...errorProps }) : children}
         {helptipVisible && !helptipOpen &&
           createPortal(
-            <HelptipElement
-            
+            <HelptipTarget
               placement={placement}
-              content={"Click me!"}
+              content={<HelpIconFilled />}
               anchorEl={anchorEl}
             />,
             document.body,
@@ -348,21 +497,13 @@ useOutsideAlerter(wrapperRef);
               placement={placement}
               content={ <BaseHelpTip className={"helpbox-container"} ref={wrapperRef}>
               <Grid container>
-                <Grid item xs={12} className={"leftItems"}>
-                  
-                  {/*
-                  {iconComponent || null}
-                  {title}
-          */}
-                </Grid>
-              
                   <Grid item xs={12} className={"helpText"}>
                     {tempHelpTip}
                   </Grid>
               
               </Grid>
-            </BaseHelpTip>} //<HelpBox title={"I'm an open Helptip!"} help={"I'm helpful text!"}/>}
-              anchorEl={anchorEl}
+            </BaseHelpTip>}
+             anchorEl={anchorEl}
               
             />,
             document.body,
