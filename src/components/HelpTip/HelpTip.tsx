@@ -140,6 +140,76 @@ const TooltipItem = styled.div<HelpTipBuild>(({ theme, placement }) => {
   };
 });
 
+
+
+
+const BaseHelpTip = styled.div(({ theme }) => ({
+  border: `1px solid ${get(theme, "borderColor", "#E2E2E2")}`,
+  borderRadius: 2,
+  backgroundColor: get(theme, "boxBackground", "#FBFAFA"),
+  paddingLeft: 25,
+  paddingTop: 20,
+  paddingBottom: 20,
+  paddingRight: 30,
+  "& .leftItems": {
+    fontSize: 16,
+    fontWeight: "bold",
+    display: "flex",
+    alignItems: "center",
+    "& .min-icon": {
+      marginRight: 15,
+      height: 28,
+      width: 38,
+    },
+  },
+  "& .helpText": {
+    fontSize: 10,
+    paddingLeft: 5,
+    marginTop: 15,
+    color: "black",
+  },
+}));
+
+const HelpTip: FC<HelpTipProps> = ({
+  children,
+  helptip,
+  errorProps,
+  placement = "bottom",
+}) => {
+  const [anchorEl, setAnchorEl] = useState<
+    (EventTarget & HTMLSpanElement) | null
+  >(null);
+  const [helptipVisible, setHelptipVisible] = useState<boolean>(false);
+  const [helptipOpen, setHelptipOpen] = useState<boolean>(false);
+  //const [hoverLock, setHoverLock] = useState<boolean>(false);
+
+  if (helptip === null) {
+    return (
+      <Fragment>
+        {errorProps ? cloneElement(children, { ...errorProps }) : children}
+      </Fragment>
+    );
+  }
+const handlePointerLeave = () => {
+  helptipOpen ? 
+  setTimeout(() => {setHelptipVisible(false);
+  //  setHoverLock(false);
+  setHelptipOpen(false)}, 5000) :
+  setTimeout(() => {setHelptipVisible(false);}, 1000)
+}
+
+const handleClick =() =>{
+  if (helptipOpen) {
+    setHelptipOpen(true)
+    setHelptipVisible(false)
+  }
+  else  {
+  setHelptipVisible(false);
+  setHelptipOpen(true);
+  }
+ // setHoverLock(true);
+}
+
 const HelptipElement: FC<HelpTipConstructProps> = ({
   placement,
   content,
@@ -215,83 +285,19 @@ const HelptipElement: FC<HelpTipConstructProps> = ({
   }
 
   return (
-    <TooltipItem placement={calculatedPlacement} style={position} >
+    <TooltipItem placement={calculatedPlacement} style={position}  onClick={handleClick}>
       {content} 
     </TooltipItem>
   );
 };
 
-
-const BaseHelpTip = styled.div(({ theme }) => ({
-  border: `1px solid ${get(theme, "borderColor", "#E2E2E2")}`,
-  borderRadius: 2,
-  backgroundColor: get(theme, "boxBackground", "#FBFAFA"),
-  paddingLeft: 25,
-  paddingTop: 20,
-  paddingBottom: 20,
-  paddingRight: 30,
-  "& .leftItems": {
-    fontSize: 16,
-    fontWeight: "bold",
-    display: "flex",
-    alignItems: "center",
-    "& .min-icon": {
-      marginRight: 15,
-      height: 28,
-      width: 38,
-    },
-  },
-  "& .helpText": {
-    fontSize: 10,
-    paddingLeft: 5,
-    marginTop: 15,
-    color: "black",
-  },
-}));
-
-const HelpTip: FC<HelpTipProps> = ({
-  children,
-  helptip,
-  errorProps,
-  placement = "bottom",
-}) => {
-  const [anchorEl, setAnchorEl] = useState<
-    (EventTarget & HTMLSpanElement) | null
-  >(null);
-  const [helptipVisible, setHelptipVisible] = useState<boolean>(false);
-  const [helptipOpen, setHelptipOpen] = useState<boolean>(false);
-  //const [hoverLock, setHoverLock] = useState<boolean>(false);
-
-  if (helptip === null) {
-    return (
-      <Fragment>
-        {errorProps ? cloneElement(children, { ...errorProps }) : children}
-      </Fragment>
-    );
-  }
-const handlePointerLeave = () => {
-  helptipOpen ? 
-  setTimeout(() => {setHelptipVisible(false);
-  //  setHoverLock(false);
-  setHelptipOpen(false)}, 5000) :
-  setTimeout(() => {setHelptipVisible(false);}, 1000)
-}
-
-const handleClick =() =>{
-  if (helptipOpen) {
-    setHelptipOpen(true)
-    setHelptipVisible(false)
-  }
-  else  {
-  setHelptipVisible(false);
-  setHelptipOpen(true);
-  }
- // setHoverLock(true);
-}
-
 const tempHelpTip = 
 <Fragment>
-  <h1>I'm a helptip!</h1>
+  <HelpIconFilled />
+  <h1>I'm a helptip!
+    <br/>
+  <a href="https://min.io" target="self">Link to MinIO</a>
+  </h1>
 </Fragment>
 
 function useOutsideAlerter(ref: any) {
@@ -316,9 +322,7 @@ useOutsideAlerter(wrapperRef);
     <Fragment>
       <TooltipWrapper
       ref={wrapperRef}
-      onClick={
-       handleClick
-      }
+     
         onPointerEnter={(event) => {
           if (!helptipOpen)  {
           setAnchorEl(event.currentTarget);
@@ -331,6 +335,7 @@ useOutsideAlerter(wrapperRef);
         {helptipVisible && !helptipOpen &&
           createPortal(
             <HelptipElement
+            
               placement={placement}
               content={"Click me!"}
               anchorEl={anchorEl}
