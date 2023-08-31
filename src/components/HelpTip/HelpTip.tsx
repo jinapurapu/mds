@@ -17,12 +17,11 @@
 import React, {
   FC,
   Fragment,
-  HTMLAttributes,
   useEffect,
   useRef,
   useState,
 } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled from "styled-components";
 import { createPortal } from "react-dom";
 import get from "lodash/get";
 import {
@@ -32,30 +31,8 @@ import {
 } from "./HelpTip.types";
 import Grid from "../Grid/Grid";
 import {  HelpIconFilled } from "../Icons";
+import { TooltipWrapper } from "../Tooltip/Tooltip";
 
-const opacityAnimation = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-const TooltipWrapper = styled.span<HTMLAttributes<HTMLDivElement>>(
-  {
-    display: "inline-flex",
-    position: "relative",
-  },
-  css`
-    &:hover {
-      & .tooltipElement {
-        display: block;
-        animation: ${opacityAnimation} 1s;
-      }
-    }
-  `,
-);
 
 const HelptipItem = styled.div<HelpTipBuild>(({ theme, placement }) => {
   const tooltipArrowSize = "6px";
@@ -240,10 +217,9 @@ const BaseHelpTip = styled.div(({ theme }) => ({
   },
 }));
 
-const HelpTip: FC<HelpTipProps> = ({
+export const HelpTip: FC<HelpTipProps> = ({
 
   helptip,
-  errorProps,
   placement = "bottom",
 }) => {
   const [anchorEl, setAnchorEl] = useState<
