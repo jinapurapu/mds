@@ -54558,7 +54558,350 @@ var rA,
       ),
     );
   },
-  zN = function (t) {
+  zN = d.div(function (e) {
+    var t = e.theme,
+      n = e.placement,
+      a = "6px",
+      r = ka(t, "tooltip.background", "#737373"),
+      o = ka(t, "tooltip.color", "#FFFFFF"),
+      i = {},
+      l = {
+        content: "' '",
+        left: "50%",
+        border: "solid transparent",
+        height: 0,
+        width: 0,
+        position: "absolute",
+        pointerEvents: "none",
+        borderWidth: a,
+        marginLeft: "calc(".concat(a, " * -1);"),
+      };
+    switch (n) {
+      case "top":
+        i = {
+          transform: "translateX(-50%) translateY(-50%)",
+          "&::before": Qe(Qe({}, l), { top: "100%", borderTopColor: r }),
+        };
+        break;
+      case "right":
+        i = {
+          transform: "translateX(0) translateY(-50%)",
+          "&::before": Qe(Qe({}, l), {
+            left: "calc(".concat(a, " * -1)"),
+            top: "50%",
+            transform: "translateX(0) translateY(-50%)",
+            borderRightColor: r,
+          }),
+        };
+        break;
+      case "left":
+        i = {
+          transform: "translateX(-100%) translateY(-50%)",
+          "&::before": Qe(Qe({}, l), {
+            left: "auto",
+            right: "calc(".concat(a, " * -2)"),
+            top: "50%",
+            transform: "translateX(0) translateY(-50%)",
+            borderLeftColor: r,
+          }),
+        };
+        break;
+      default:
+        i = {
+          transform: "translateX(-50%)",
+          "&::before": Qe(Qe({}, l), { bottom: "100%", borderBottomColor: r }),
+        };
+    }
+    return Qe(
+      {
+        position: "fixed",
+        borderRadius: 4,
+        color: o,
+        background: r,
+        lineHeight: 1,
+        zIndex: 10001,
+        padding: 8,
+        fontSize: 12,
+        boxShadow: "#00000050 0px 3px 10px",
+        maxWidth: 350,
+      },
+      i,
+    );
+  }),
+  GN = d.div(function (e) {
+    var t = e.theme,
+      n = e.placement,
+      a = "6px",
+      r = ka(t, "tooltip.background", "#737373"),
+      o = {},
+      i = {
+        content: "' '",
+        left: "50%",
+        height: 0,
+        width: 0,
+        position: "absolute",
+        pointerEvents: "none",
+        marginLeft: "calc(".concat(a, " * -1);"),
+      };
+    switch (n) {
+      case "top":
+        o = {
+          transform: "translateX(-50%) translateY(-50%)",
+          "&::before": Qe(Qe({}, i), { top: "100%", borderTopColor: r }),
+        };
+        break;
+      case "right":
+        o = {
+          transform: "translateX(0) translateY(-50%)",
+          "&::before": Qe(Qe({}, i), {
+            left: "calc(".concat(a, " * -1)"),
+            top: "50%",
+            transform: "translateX(0) translateY(-50%)",
+            borderRightColor: r,
+          }),
+        };
+        break;
+      case "left":
+        o = {
+          transform: "translateX(-100%) translateY(-50%)",
+          "&::before": Qe(Qe({}, i), {
+            left: "auto",
+            right: "calc(".concat(a, " * -2)"),
+            top: "50%",
+            transform: "translateX(0) translateY(-50%)",
+            borderLeftColor: r,
+          }),
+        };
+        break;
+      default:
+        o = {
+          transform: "translateX(-50%)",
+          "&::before": Qe(Qe({}, i), { bottom: "100%", borderBottomColor: r }),
+        };
+    }
+    return Qe({ position: "fixed", color: r, zIndex: 10001 }, o);
+  }),
+  ZN = d.div(function (e) {
+    var t = e.theme;
+    return {
+      border: "1px solid ".concat(ka(t, "borderColor", "#E2E2E2")),
+      borderRadius: 2,
+      backgroundColor: ka(t, "boxBackground", "#FBFAFA"),
+      paddingLeft: 25,
+      paddingTop: 20,
+      paddingBottom: 20,
+      paddingRight: 30,
+      "& .leftItems": {
+        fontSize: 16,
+        fontWeight: "bold",
+        display: "flex",
+        alignItems: "center",
+        "& .min-icon": { marginRight: 15, height: 28, width: 38 },
+      },
+      "& .helpText": {
+        fontSize: 10,
+        paddingLeft: 5,
+        marginTop: 15,
+        color: "black",
+      },
+    };
+  }),
+  VN = function (e) {
+    var o = e.helptip,
+      i = e.placement,
+      s = void 0 === i ? "bottom" : i,
+      c = a(null),
+      d = c[0],
+      u = c[1],
+      p = a(!1),
+      m = p[0],
+      h = p[1],
+      g = a(!1),
+      E = g[0],
+      b = g[1],
+      T = function () {
+        E || (h(!1), b(!0));
+      };
+    var v,
+      _ = l(null);
+    return (
+      r(
+        function () {
+          function e(e) {
+            v.current && !v.current.contains(e.target) && b(!1);
+          }
+          return (
+            document.addEventListener("mousedown", e),
+            function () {
+              document.removeEventListener("mousedown", e);
+            }
+          );
+        },
+        [(v = _)],
+      ),
+      t.createElement(
+        n,
+        null,
+        t.createElement(
+          ho,
+          {
+            ref: _,
+            onPointerEnter: function (e) {
+              E || (u(e.currentTarget), h(!0));
+            },
+            onMouseLeave: function () {
+              E
+                ? setTimeout(function () {
+                    h(!1), b(!1);
+                  }, 5e3)
+                : setTimeout(function () {
+                    h(!1);
+                  }, 1e3);
+            },
+          },
+          m &&
+            !E &&
+            f(
+              t.createElement(
+                function (e) {
+                  var n = e.placement,
+                    a = e.anchorEl,
+                    r = {},
+                    o = n;
+                  if (a) {
+                    var i = a.getBoundingClientRect(),
+                      l = document.documentElement.offsetWidth,
+                      s = document.documentElement.offsetHeight;
+                    switch (n) {
+                      case "bottom":
+                        i.top + i.height + 45 > s && (o = "top");
+                        break;
+                      case "left":
+                        i.left - 175 < 0 && (o = "right");
+                        break;
+                      case "right":
+                        i.left + i.width + 175 > l && (o = "left");
+                        break;
+                      case "top":
+                        i.top < 45 && (o = "bottom");
+                    }
+                    switch (o) {
+                      case "bottom":
+                        r = {
+                          top: i.top + i.height + 10,
+                          left: i.left + i.width / 2,
+                        };
+                        break;
+                      case "left":
+                        r = { top: i.top + i.height / 2, left: i.left - 12 };
+                        break;
+                      case "right":
+                        r = {
+                          top: i.top + i.height / 2,
+                          left: i.left + i.width + 12,
+                        };
+                        break;
+                      case "top":
+                        r = {
+                          top: i.top - i.height / 2 - 10,
+                          left: i.left + i.width / 2,
+                        };
+                    }
+                  }
+                  return t.createElement(
+                    GN,
+                    { placement: o, style: r, onClick: T },
+                    t.createElement(PA, { style: { width: 12, height: 12 } }),
+                  );
+                },
+                {
+                  placement: s,
+                  content: t.createElement(PA, null),
+                  anchorEl: d,
+                },
+              ),
+              document.body,
+            ),
+          E &&
+            f(
+              t.createElement(
+                function (e) {
+                  var n = e.placement,
+                    a = e.content,
+                    r = e.anchorEl,
+                    o = {},
+                    i = n;
+                  if (r) {
+                    var l = r.getBoundingClientRect(),
+                      s = document.documentElement.offsetWidth,
+                      c = document.documentElement.offsetHeight;
+                    switch (n) {
+                      case "bottom":
+                        l.top + l.height + 45 > c && (i = "top");
+                        break;
+                      case "left":
+                        l.left - 175 < 0 && (i = "right");
+                        break;
+                      case "right":
+                        l.left + l.width + 175 > s && (i = "left");
+                        break;
+                      case "top":
+                        l.top < 45 && (i = "bottom");
+                    }
+                    switch (i) {
+                      case "bottom":
+                        o = {
+                          top: l.top + l.height + 10,
+                          left: l.left + l.width / 2,
+                        };
+                        break;
+                      case "left":
+                        o = { top: l.top + l.height / 2, left: l.left - 12 };
+                        break;
+                      case "right":
+                        o = {
+                          top: l.top + l.height / 2,
+                          left: l.left + l.width + 12,
+                        };
+                        break;
+                      case "top":
+                        o = {
+                          top: l.top - l.height / 2 - 10,
+                          left: l.left + l.width / 2,
+                        };
+                    }
+                  }
+                  return t.createElement(
+                    zN,
+                    { placement: i, style: o, onClick: T },
+                    a,
+                  );
+                },
+                {
+                  placement: s,
+                  content: t.createElement(
+                    ZN,
+                    { className: "helpbox-container", ref: _ },
+                    t.createElement(
+                      br,
+                      { container: !0 },
+                      t.createElement(
+                        br,
+                        { item: !0, xs: 12, className: "helpText" },
+                        o,
+                      ),
+                    ),
+                  ),
+                  anchorEl: d,
+                },
+              ),
+              document.body,
+            ),
+        ),
+      )
+    );
+  },
+  $N = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -54577,7 +54920,7 @@ var rA,
       }),
     );
   },
-  GN = function (t) {
+  jN = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -54631,7 +54974,7 @@ var rA,
       ),
     );
   },
-  ZN = function (t) {
+  WN = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -54655,7 +54998,7 @@ var rA,
       ),
     );
   },
-  VN = function (t) {
+  qN = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -54703,7 +55046,7 @@ var rA,
       ),
     );
   },
-  $N = function (t) {
+  KN = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -54734,7 +55077,7 @@ var rA,
       ),
     );
   },
-  jN = function (t) {
+  YN = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -54806,7 +55149,7 @@ var rA,
       ),
     );
   },
-  WN = function (t) {
+  XN = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -54863,7 +55206,7 @@ var rA,
       ),
     );
   },
-  qN = function (t) {
+  QN = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -54911,7 +55254,7 @@ var rA,
       ),
     );
   },
-  KN = function (t) {
+  JN = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -54933,7 +55276,7 @@ var rA,
       }),
     );
   },
-  YN = function (t) {
+  eI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -54987,7 +55330,7 @@ var rA,
       ),
     );
   },
-  XN = function (t) {
+  tI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55034,7 +55377,7 @@ var rA,
       ),
     );
   },
-  QN = function (t) {
+  nI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55082,7 +55425,7 @@ var rA,
       ),
     );
   },
-  JN = function (t) {
+  aI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55129,7 +55472,7 @@ var rA,
       ),
     );
   },
-  eI = function (t) {
+  rI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55161,7 +55504,7 @@ var rA,
       ),
     );
   },
-  tI = function (t) {
+  oI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55203,7 +55546,7 @@ var rA,
       ),
     );
   },
-  nI = function (t) {
+  iI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55245,7 +55588,7 @@ var rA,
       ),
     );
   },
-  aI = function (t) {
+  lI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55299,7 +55642,7 @@ var rA,
       ),
     );
   },
-  rI = function (t) {
+  sI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55340,7 +55683,7 @@ var rA,
       ),
     );
   },
-  oI = function (t) {
+  cI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55394,7 +55737,7 @@ var rA,
       ),
     );
   },
-  iI = function (t) {
+  dI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55415,7 +55758,7 @@ var rA,
       }),
     );
   },
-  lI = function (t) {
+  uI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55489,7 +55832,7 @@ var rA,
       ),
     );
   },
-  sI = function (t) {
+  pI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55533,7 +55876,7 @@ var rA,
       ),
     );
   },
-  cI = function (t) {
+  mI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55553,7 +55896,7 @@ var rA,
       }),
     );
   },
-  dI = function (t) {
+  hI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55572,7 +55915,7 @@ var rA,
       }),
     );
   },
-  uI = function (t) {
+  gI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55590,7 +55933,7 @@ var rA,
       }),
     );
   },
-  pI = function (t) {
+  fI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55612,7 +55955,7 @@ var rA,
       }),
     );
   },
-  mI = function (t) {
+  EI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55634,7 +55977,7 @@ var rA,
       }),
     );
   },
-  hI = function (t) {
+  bI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55675,7 +56018,7 @@ var rA,
       ),
     );
   },
-  gI = function (t) {
+  TI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55708,7 +56051,7 @@ var rA,
       ),
     );
   },
-  fI = function (t) {
+  vI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55741,7 +56084,7 @@ var rA,
       ),
     );
   },
-  EI = function (t) {
+  _I = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55775,7 +56118,7 @@ var rA,
       ),
     );
   },
-  bI = function (t) {
+  SI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55813,7 +56156,7 @@ var rA,
       ),
     );
   },
-  TI = function (t) {
+  yI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55846,7 +56189,7 @@ var rA,
       ),
     );
   },
-  vI = function (t) {
+  CI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55890,7 +56233,7 @@ var rA,
       ),
     );
   },
-  _I = function (t) {
+  AI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55940,7 +56283,7 @@ var rA,
       ),
     );
   },
-  SI = function (t) {
+  wI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -55986,7 +56329,7 @@ var rA,
       ),
     );
   },
-  yI = function (t) {
+  RI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -56044,7 +56387,7 @@ var rA,
       ),
     );
   },
-  CI = function (t) {
+  NI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -56081,7 +56424,7 @@ var rA,
       ),
     );
   },
-  AI = function (t) {
+  II = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -56131,7 +56474,7 @@ var rA,
       ),
     );
   },
-  wI = function (t) {
+  xI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -56157,7 +56500,7 @@ var rA,
       }),
     );
   },
-  RI = function (t) {
+  kI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -56190,7 +56533,7 @@ var rA,
       ),
     );
   },
-  NI = function (t) {
+  OI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -56223,7 +56566,7 @@ var rA,
       ),
     );
   },
-  II = function (t) {
+  LI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -56256,7 +56599,7 @@ var rA,
       ),
     );
   },
-  xI = function (t) {
+  MI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -56292,7 +56635,7 @@ var rA,
       ),
     );
   },
-  kI = function (t) {
+  PI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -56325,7 +56668,7 @@ var rA,
       ),
     );
   },
-  OI = function (t) {
+  DI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -56358,7 +56701,7 @@ var rA,
       ),
     );
   },
-  LI = function (t) {
+  BI = function (t) {
     return e.createElement(
       "svg",
       Qe(
@@ -56394,11 +56737,11 @@ export {
   pN as AGPLV3DarkLogo,
   sN as AGPLV3LightLogo,
   cN as AGPLV3Logo,
-  tI as AccessMenuIcon,
+  oI as AccessMenuIcon,
   NN as AccessRuleIcon,
   UN as Accordion,
   mw as AccountIcon,
-  rI as AccountsMenuIcon,
+  sI as AccountsMenuIcon,
   hA as ActionLink,
   Wc as ActionsList,
   hw as AddAccessRuleIcon,
@@ -56418,7 +56761,7 @@ export {
   SA as AttachFileIcon,
   xN as AudioIcon,
   kN as AudioIconMute,
-  GN as AuditLogsMenuIcon,
+  jN as AuditLogsMenuIcon,
   IR as AzureTierIcon,
   ER as AzureTierIconXs,
   zc as BackCaretIcon,
@@ -56433,11 +56776,11 @@ export {
   aw as BucketQuotaIcon,
   yR as BucketReplicationIcon,
   _R as BucketsIcon,
-  lI as BucketsMenuIcon,
+  uI as BucketsMenuIcon,
   Qa as Button,
   xR as CalendarIcon,
   Bw as CallHomeFeatureIcon,
-  iI as CallHomeMenuIcon,
+  dI as CallHomeMenuIcon,
   MN as CancelledAudioIcon,
   eN as CancelledIcon,
   EN as CertificateIcon,
@@ -56473,7 +56816,7 @@ export {
   qR as DeleteNonCurrentIcon,
   Qw as DiagnosticsFeatureIcon,
   Cw as DiagnosticsIcon,
-  eI as DiagnosticsMenuIcon,
+  rI as DiagnosticsMenuIcon,
   Bs as DisableIcon,
   NA as DisabledIcon,
   Xw as DocumentationIcon,
@@ -56481,7 +56824,7 @@ export {
   oR as DownloadStatIcon,
   Pw as DriveFormatErrorsIcon,
   Tw as DrivesIcon,
-  aI as DrivesMenuIcon,
+  lI as DrivesMenuIcon,
   ud as DropdownSelector,
   Gs as EditIcon,
   tN as EditTagIcon,
@@ -56495,28 +56838,28 @@ export {
   ld as ExpandCaret,
   au as ExpandOptionsButton,
   fN as ExtraFeaturesIcon,
-  vI as FileBookIcon,
-  kI as FileCloudIcon,
-  SI as FileCodeIcon,
-  hI as FileConfigIcon,
-  CI as FileDbIcon,
-  fI as FileFontIcon,
-  bI as FileImageIcon,
-  EI as FileLinkIcon,
-  RI as FileLockIcon,
-  _I as FileMissingIcon,
-  OI as FileMusicIcon,
-  LI as FileNonType,
-  gI as FilePdfIcon,
-  yI as FilePptIcon,
+  CI as FileBookIcon,
+  PI as FileCloudIcon,
+  wI as FileCodeIcon,
+  bI as FileConfigIcon,
+  NI as FileDbIcon,
+  vI as FileFontIcon,
+  SI as FileImageIcon,
+  _I as FileLinkIcon,
+  kI as FileLockIcon,
+  AI as FileMissingIcon,
+  DI as FileMusicIcon,
+  BI as FileNonType,
+  TI as FilePdfIcon,
+  RI as FilePptIcon,
   CA as FileSelector,
-  AI as FileTxtIcon,
-  wI as FileVideoIcon,
-  TI as FileWorldIcon,
-  NI as FileXlsIcon,
-  II as FileZipIcon,
+  II as FileTxtIcon,
+  xI as FileVideoIcon,
+  yI as FileWorldIcon,
+  OI as FileXlsIcon,
+  LI as FileZipIcon,
   AN as FilterIcon,
-  xI as FolderBrowserIcon,
+  MI as FolderBrowserIcon,
   wN as FolderIcon,
   xc as FormLayout,
   Hs as FormatDriveIcon,
@@ -56526,24 +56869,25 @@ export {
   Uw as GoogleTierIconXs,
   br as Grid,
   rR as GroupsIcon,
-  jN as GroupsMenuIcon,
+  YN as GroupsMenuIcon,
   LR as HardBucketQuotaIcon,
   ew as HealIcon,
-  ZN as HealthMenuIcon,
+  WN as HealthMenuIcon,
   Rc as HelpBox,
   So as HelpIcon,
   PA as HelpIconFilled,
+  VN as HelpTip,
   TR as HistoryIcon,
   Fs as IAMPoliciesIcon,
   wo as IconButton,
-  mI as IdentitiesMenuIcon,
-  KN as IdentityMenuIcon,
+  EI as IdentitiesMenuIcon,
+  JN as IdentityMenuIcon,
   rN as InfoIcon,
   Uc as InputBox,
   To as InputLabel,
-  zN as InspectMenuIcon,
+  $N as InspectMenuIcon,
   DA as JSONIcon,
-  cI as KeysMenuIcon,
+  mI as KeysMenuIcon,
   mN as LDAPIcon,
   MA as LambdaBalloonIcon,
   aR as LambdaIcon,
@@ -56559,18 +56903,18 @@ export {
   Wr as LoginWrapper,
   Cd as LogoutIcon,
   OR as LogsIcon,
-  YN as LogsMenuIcon,
+  eI as LogsMenuIcon,
   Pc as MainContainer,
   tu as Menu,
-  WN as MenuCollapsedIcon,
-  VN as MenuExpandedIcon,
+  XN as MenuCollapsedIcon,
+  qN as MenuExpandedIcon,
   FR as MetadataIcon,
-  qN as MetricsMenuIcon,
+  QN as MetricsMenuIcon,
   ww as MinIOTierIcon,
   Wd as MinIOTierIconXs,
   jA as MirroringIcon,
   ed as ModalBox,
-  XN as MonitoringMenuIcon,
+  tI as MonitoringMenuIcon,
   xw as MultipleBucketsIcon,
   XR as NetworkGetIcon,
   QR as NetworkPutIcon,
@@ -56595,11 +56939,11 @@ export {
   Oc as PageLayout,
   Jw as PasswordKeyIcon,
   $w as PerformanceFeatureIcon,
-  JN as PerformanceMenuIcon,
+  aI as PerformanceMenuIcon,
   uw as PermissionIcon,
-  pI as PoliciesMenuIcon,
+  fI as PoliciesMenuIcon,
   Us as PreviewIcon,
-  oI as ProfileMenuIcon,
+  cI as ProfileMenuIcon,
   _A as ProgressBar,
   Lw as PrometheusErrorIcon,
   sw as PrometheusIcon,
@@ -56608,7 +56952,7 @@ export {
   wR as RecoverIcon,
   UA as RedoIcon,
   OA as RefreshIcon,
-  nI as RegisterMenuIcon,
+  iI as RegisterMenuIcon,
   JR as RemoveAllIcon,
   Zw as RemoveIcon,
   RN as ReportIcon,
@@ -56619,7 +56963,7 @@ export {
   Ww as S3TierIconXs,
   Xc as ScreenTitle,
   BA as SearchIcon,
-  uI as SecretsMenuIcon,
+  gI as SecretsMenuIcon,
   Ic as SectionTitle,
   hd as Select,
   jR as SelectAllIcon,
@@ -56636,10 +56980,10 @@ export {
   xA as SpeedtestIcon,
   uN as StandardLightLogo,
   gN as StarIcon,
-  dI as StatusMenuIcon,
+  hI as StatusMenuIcon,
   kA as StorageIcon,
   YR as SuccessIcon,
-  QN as SupportMenuIcon,
+  nI as SupportMenuIcon,
   od as Switch,
   fR as SyncIcon,
   su as Tabs,
@@ -56660,7 +57004,7 @@ export {
   Eo as Tooltip,
   bR as TotalObjectsIcon,
   Hw as TraceIcon,
-  $N as TraceMenuIcon,
+  KN as TraceMenuIcon,
   Zs as TrashIcon,
   mR as UploadFile,
   iR as UploadFolderIcon,
@@ -56669,7 +57013,7 @@ export {
   gw as UptimeIcon,
   yN as UserFilledIcon,
   qw as UsersIcon,
-  sI as UsersMenuIcon,
+  pI as UsersMenuIcon,
   fA as ValuePair,
   Dw as VerifiedIcon,
   LA as VersionIcon,

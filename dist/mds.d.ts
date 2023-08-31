@@ -1120,6 +1120,22 @@ interface AccordionContentProps {
 
 declare const Accordion: FC<AccordionProps>;
 
+interface HelpTipProps {
+  helptip: React__default.ReactElement;
+  errorProps?: any;
+  placement?: "bottom" | "left" | "right" | "top";
+}
+interface HelpTipBuild {
+  placement: "bottom" | "left" | "right" | "top";
+}
+interface HelpTipConstructProps {
+  placement: "bottom" | "left" | "right" | "top";
+  content: React__default.ReactNode;
+  anchorEl: (EventTarget & HTMLSpanElement) | null;
+}
+
+declare const HelpTip: FC<HelpTipProps>;
+
 declare const EditorThemeSwitchIcon: (
   props: SVGProps<SVGSVGElement>,
 ) => React__default.JSX.Element;
@@ -2192,6 +2208,10 @@ export {
   HelpBoxProps,
   HelpIcon,
   HelpIconFilled,
+  HelpTip,
+  HelpTipBuild,
+  HelpTipConstructProps,
+  HelpTipProps,
   HistoryIcon,
   IAMPoliciesIcon,
   IActionButton,

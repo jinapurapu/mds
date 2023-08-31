@@ -45311,7 +45311,55 @@ var AC,
       )
     );
   }),
-  zC = l.default.div(function (e) {
+  zC = function (e) {
+    return i.createElement(
+      "svg",
+      Ge(
+        {
+          xmlns: "http://www.w3.org/2000/svg",
+          className: "min-icon",
+          fill: "currentcolor",
+          viewBox: "0 0 21 21",
+        },
+        e,
+      ),
+      i.createElement(
+        "defs",
+        null,
+        i.createElement(
+          "clipPath",
+          { id: "clip-path-help-icon" },
+          i.createElement("rect", {
+            id: "Rectángulo_961",
+            "data-name": "Rectángulo 961",
+            width: "21",
+            height: "21",
+            transform: "translate(0 -0.159)",
+            fill: "currentcolor",
+          }),
+        ),
+      ),
+      i.createElement(
+        "g",
+        { id: "HelpIcon-Full", transform: "translate(0 0.159)" },
+        i.createElement(
+          "g",
+          {
+            id: "Grupo_2320",
+            "data-name": "Grupo 2320",
+            clipPath: "url(#clip-path-help-icon)",
+          },
+          i.createElement("path", {
+            id: "Trazado_7048",
+            "data-name": "Trazado 7048",
+            d: "M10.42,0A10.42,10.42,0,1,0,20.84,10.42,10.42,10.42,0,0,0,10.42,0M9.534,18.477a2,2,0,0,1-1.953-1.953h0a1.943,1.943,0,1,1,1.953,1.953m1.309-6.32-.082,1.176H8.3V9.856h.982c1.974,0,3.037-.624,3.037-1.82,0-1.1-1.053-1.7-3.007-1.7-.552,0-1.125.041-1.554.081L7.561,3.73A15.939,15.939,0,0,1,9.626,3.6c3.569,0,5.635,1.647,5.635,4.234,0,2.362-1.575,3.876-4.418,4.326",
+            fill: "currentcolor",
+          }),
+        ),
+      ),
+    );
+  },
+  GC = l.default.div(function (e) {
     var t = e.theme,
       n = e.sx;
     return Ge(
@@ -45319,7 +45367,7 @@ var AC,
       n,
     );
   }),
-  GC = l.default.div(function (e) {
+  ZC = l.default.div(function (e) {
     var t = e.theme;
     return {
       display: "flex",
@@ -45337,7 +45385,7 @@ var AC,
       "&:not(.disabled):hover": { backgroundColor: _a(t, "boxBackground", E) },
     };
   }),
-  ZC = l.default.div(function (e) {
+  VC = l.default.div(function (e) {
     var t = e.theme,
       n = e.expanded;
     return {
@@ -45347,6 +45395,154 @@ var AC,
         padding: 10,
         marginTop: n ? 0 : "-100%",
         transition: "all 0.2s",
+      },
+    };
+  }),
+  $C = l.default.div(function (e) {
+    var t = e.theme,
+      n = e.placement,
+      a = "6px",
+      r = _a(t, "tooltip.background", "#737373"),
+      o = _a(t, "tooltip.color", "#FFFFFF"),
+      i = {},
+      l = {
+        content: "' '",
+        left: "50%",
+        border: "solid transparent",
+        height: 0,
+        width: 0,
+        position: "absolute",
+        pointerEvents: "none",
+        borderWidth: a,
+        marginLeft: "calc(".concat(a, " * -1);"),
+      };
+    switch (n) {
+      case "top":
+        i = {
+          transform: "translateX(-50%) translateY(-50%)",
+          "&::before": Ge(Ge({}, l), { top: "100%", borderTopColor: r }),
+        };
+        break;
+      case "right":
+        i = {
+          transform: "translateX(0) translateY(-50%)",
+          "&::before": Ge(Ge({}, l), {
+            left: "calc(".concat(a, " * -1)"),
+            top: "50%",
+            transform: "translateX(0) translateY(-50%)",
+            borderRightColor: r,
+          }),
+        };
+        break;
+      case "left":
+        i = {
+          transform: "translateX(-100%) translateY(-50%)",
+          "&::before": Ge(Ge({}, l), {
+            left: "auto",
+            right: "calc(".concat(a, " * -2)"),
+            top: "50%",
+            transform: "translateX(0) translateY(-50%)",
+            borderLeftColor: r,
+          }),
+        };
+        break;
+      default:
+        i = {
+          transform: "translateX(-50%)",
+          "&::before": Ge(Ge({}, l), { bottom: "100%", borderBottomColor: r }),
+        };
+    }
+    return Ge(
+      {
+        position: "fixed",
+        borderRadius: 4,
+        color: o,
+        background: r,
+        lineHeight: 1,
+        zIndex: 10001,
+        padding: 8,
+        fontSize: 12,
+        boxShadow: "#00000050 0px 3px 10px",
+        maxWidth: 350,
+      },
+      i,
+    );
+  }),
+  jC = l.default.div(function (e) {
+    var t = e.theme,
+      n = e.placement,
+      a = "6px",
+      r = _a(t, "tooltip.background", "#737373"),
+      o = {},
+      i = {
+        content: "' '",
+        left: "50%",
+        height: 0,
+        width: 0,
+        position: "absolute",
+        pointerEvents: "none",
+        marginLeft: "calc(".concat(a, " * -1);"),
+      };
+    switch (n) {
+      case "top":
+        o = {
+          transform: "translateX(-50%) translateY(-50%)",
+          "&::before": Ge(Ge({}, i), { top: "100%", borderTopColor: r }),
+        };
+        break;
+      case "right":
+        o = {
+          transform: "translateX(0) translateY(-50%)",
+          "&::before": Ge(Ge({}, i), {
+            left: "calc(".concat(a, " * -1)"),
+            top: "50%",
+            transform: "translateX(0) translateY(-50%)",
+            borderRightColor: r,
+          }),
+        };
+        break;
+      case "left":
+        o = {
+          transform: "translateX(-100%) translateY(-50%)",
+          "&::before": Ge(Ge({}, i), {
+            left: "auto",
+            right: "calc(".concat(a, " * -2)"),
+            top: "50%",
+            transform: "translateX(0) translateY(-50%)",
+            borderLeftColor: r,
+          }),
+        };
+        break;
+      default:
+        o = {
+          transform: "translateX(-50%)",
+          "&::before": Ge(Ge({}, i), { bottom: "100%", borderBottomColor: r }),
+        };
+    }
+    return Ge({ position: "fixed", color: r, zIndex: 10001 }, o);
+  }),
+  WC = l.default.div(function (e) {
+    var t = e.theme;
+    return {
+      border: "1px solid ".concat(_a(t, "borderColor", "#E2E2E2")),
+      borderRadius: 2,
+      backgroundColor: _a(t, "boxBackground", "#FBFAFA"),
+      paddingLeft: 25,
+      paddingTop: 20,
+      paddingBottom: 20,
+      paddingRight: 30,
+      "& .leftItems": {
+        fontSize: 16,
+        fontWeight: "bold",
+        display: "flex",
+        alignItems: "center",
+        "& .min-icon": { marginRight: 15, height: 28, width: 38 },
+      },
+      "& .helpText": {
+        fontSize: 10,
+        paddingLeft: 5,
+        marginTop: 15,
+        color: "black",
       },
     };
   });
@@ -45515,10 +45711,10 @@ var AC,
       l = e.id,
       s = e.sx;
     return o.default.createElement(
-      zC,
+      GC,
       { id: l, sx: s },
       o.default.createElement(
-        GC,
+        ZC,
         {
           onClick: function () {
             return i ? null : r();
@@ -45531,7 +45727,7 @@ var AC,
           : o.default.createElement(Pc, null),
       ),
       o.default.createElement(
-        ZC,
+        VC,
         { className: "accordionContent", expanded: n },
         o.default.createElement(Ps, { className: "expandSubContainer" }, a),
       ),
@@ -50781,52 +50977,203 @@ var AC,
     );
   }),
   (exports.HelpIcon = so),
-  (exports.HelpIconFilled = function (e) {
-    return i.createElement(
-      "svg",
-      Ge(
-        {
-          xmlns: "http://www.w3.org/2000/svg",
-          className: "min-icon",
-          fill: "currentcolor",
-          viewBox: "0 0 21 21",
+  (exports.HelpIconFilled = zC),
+  (exports.HelpTip = function (t) {
+    var a = t.helptip,
+      r = t.placement,
+      i = void 0 === r ? "bottom" : r,
+      l = e.useState(null),
+      s = l[0],
+      c = l[1],
+      d = e.useState(!1),
+      u = d[0],
+      p = d[1],
+      m = e.useState(!1),
+      h = m[0],
+      f = m[1],
+      g = function () {
+        h || (p(!1), f(!0));
+      };
+    var E,
+      b = e.useRef(null);
+    return (
+      (E = b),
+      e.useEffect(
+        function () {
+          function e(e) {
+            E.current && !E.current.contains(e.target) && f(!1);
+          }
+          return (
+            document.addEventListener("mousedown", e),
+            function () {
+              document.removeEventListener("mousedown", e);
+            }
+          );
         },
-        e,
+        [E],
       ),
-      i.createElement(
-        "defs",
+      o.default.createElement(
+        e.Fragment,
         null,
-        i.createElement(
-          "clipPath",
-          { id: "clip-path-help-icon" },
-          i.createElement("rect", {
-            id: "Rectángulo_961",
-            "data-name": "Rectángulo 961",
-            width: "21",
-            height: "21",
-            transform: "translate(0 -0.159)",
-            fill: "currentcolor",
-          }),
-        ),
-      ),
-      i.createElement(
-        "g",
-        { id: "HelpIcon-Full", transform: "translate(0 0.159)" },
-        i.createElement(
-          "g",
+        o.default.createElement(
+          eo,
           {
-            id: "Grupo_2320",
-            "data-name": "Grupo 2320",
-            clipPath: "url(#clip-path-help-icon)",
+            ref: b,
+            onPointerEnter: function (e) {
+              h || (c(e.currentTarget), p(!0));
+            },
+            onMouseLeave: function () {
+              h
+                ? setTimeout(function () {
+                    p(!1), f(!1);
+                  }, 5e3)
+                : setTimeout(function () {
+                    p(!1);
+                  }, 1e3);
+            },
           },
-          i.createElement("path", {
-            id: "Trazado_7048",
-            "data-name": "Trazado 7048",
-            d: "M10.42,0A10.42,10.42,0,1,0,20.84,10.42,10.42,10.42,0,0,0,10.42,0M9.534,18.477a2,2,0,0,1-1.953-1.953h0a1.943,1.943,0,1,1,1.953,1.953m1.309-6.32-.082,1.176H8.3V9.856h.982c1.974,0,3.037-.624,3.037-1.82,0-1.1-1.053-1.7-3.007-1.7-.552,0-1.125.041-1.554.081L7.561,3.73A15.939,15.939,0,0,1,9.626,3.6c3.569,0,5.635,1.647,5.635,4.234,0,2.362-1.575,3.876-4.418,4.326",
-            fill: "currentcolor",
-          }),
+          u &&
+            !h &&
+            n.createPortal(
+              o.default.createElement(
+                function (e) {
+                  var t = e.placement,
+                    n = e.anchorEl,
+                    a = {},
+                    r = t;
+                  if (n) {
+                    var i = n.getBoundingClientRect(),
+                      l = document.documentElement.offsetWidth,
+                      s = document.documentElement.offsetHeight;
+                    switch (t) {
+                      case "bottom":
+                        i.top + i.height + 45 > s && (r = "top");
+                        break;
+                      case "left":
+                        i.left - 175 < 0 && (r = "right");
+                        break;
+                      case "right":
+                        i.left + i.width + 175 > l && (r = "left");
+                        break;
+                      case "top":
+                        i.top < 45 && (r = "bottom");
+                    }
+                    switch (r) {
+                      case "bottom":
+                        a = {
+                          top: i.top + i.height + 10,
+                          left: i.left + i.width / 2,
+                        };
+                        break;
+                      case "left":
+                        a = { top: i.top + i.height / 2, left: i.left - 12 };
+                        break;
+                      case "right":
+                        a = {
+                          top: i.top + i.height / 2,
+                          left: i.left + i.width + 12,
+                        };
+                        break;
+                      case "top":
+                        a = {
+                          top: i.top - i.height / 2 - 10,
+                          left: i.left + i.width / 2,
+                        };
+                    }
+                  }
+                  return o.default.createElement(
+                    jC,
+                    { placement: r, style: a, onClick: g },
+                    o.default.createElement(zC, {
+                      style: { width: 12, height: 12 },
+                    }),
+                  );
+                },
+                {
+                  placement: i,
+                  content: o.default.createElement(zC, null),
+                  anchorEl: s,
+                },
+              ),
+              document.body,
+            ),
+          h &&
+            n.createPortal(
+              o.default.createElement(
+                function (e) {
+                  var t = e.placement,
+                    n = e.content,
+                    a = e.anchorEl,
+                    r = {},
+                    i = t;
+                  if (a) {
+                    var l = a.getBoundingClientRect(),
+                      s = document.documentElement.offsetWidth,
+                      c = document.documentElement.offsetHeight;
+                    switch (t) {
+                      case "bottom":
+                        l.top + l.height + 45 > c && (i = "top");
+                        break;
+                      case "left":
+                        l.left - 175 < 0 && (i = "right");
+                        break;
+                      case "right":
+                        l.left + l.width + 175 > s && (i = "left");
+                        break;
+                      case "top":
+                        l.top < 45 && (i = "bottom");
+                    }
+                    switch (i) {
+                      case "bottom":
+                        r = {
+                          top: l.top + l.height + 10,
+                          left: l.left + l.width / 2,
+                        };
+                        break;
+                      case "left":
+                        r = { top: l.top + l.height / 2, left: l.left - 12 };
+                        break;
+                      case "right":
+                        r = {
+                          top: l.top + l.height / 2,
+                          left: l.left + l.width + 12,
+                        };
+                        break;
+                      case "top":
+                        r = {
+                          top: l.top - l.height / 2 - 10,
+                          left: l.left + l.width / 2,
+                        };
+                    }
+                  }
+                  return o.default.createElement(
+                    $C,
+                    { placement: i, style: r, onClick: g },
+                    n,
+                  );
+                },
+                {
+                  placement: i,
+                  content: o.default.createElement(
+                    WC,
+                    { className: "helpbox-container", ref: b },
+                    o.default.createElement(
+                      lr,
+                      { container: !0 },
+                      o.default.createElement(
+                        lr,
+                        { item: !0, xs: 12, className: "helpText" },
+                        a,
+                      ),
+                    ),
+                  ),
+                  anchorEl: s,
+                },
+              ),
+              document.body,
+            ),
         ),
-      ),
+      )
     );
   }),
   (exports.HistoryIcon = function (e) {

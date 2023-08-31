@@ -14,13 +14,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React, {
-  FC,
-  Fragment,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, Fragment, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { createPortal } from "react-dom";
 import get from "lodash/get";
@@ -30,9 +24,8 @@ import {
   HelpTipProps,
 } from "./HelpTip.types";
 import Grid from "../Grid/Grid";
-import {  HelpIconFilled } from "../Icons";
+import { HelpIconFilled } from "../Icons";
 import { TooltipWrapper } from "../Tooltip/Tooltip";
-
 
 const HelptipItem = styled.div<HelpTipBuild>(({ theme, placement }) => {
   const tooltipArrowSize = "6px";
@@ -186,10 +179,6 @@ const HelpTargetItem = styled.div<HelpTipBuild>(({ theme, placement }) => {
   };
 });
 
-
-
-
-
 const BaseHelpTip = styled.div(({ theme }) => ({
   border: `1px solid ${get(theme, "borderColor", "#E2E2E2")}`,
   borderRadius: 2,
@@ -218,7 +207,6 @@ const BaseHelpTip = styled.div(({ theme }) => ({
 }));
 
 export const HelpTip: FC<HelpTipProps> = ({
-
   helptip,
   placement = "bottom",
 }) => {
@@ -228,220 +216,224 @@ export const HelpTip: FC<HelpTipProps> = ({
   const [helptipVisible, setHelptipVisible] = useState<boolean>(false);
   const [helptipOpen, setHelptipOpen] = useState<boolean>(false);
 
- 
-const handlePointerLeave = () => {
-  helptipOpen ? 
-  setTimeout(() => {
-    setHelptipVisible(false);
-    setHelptipOpen(false);
-  }, 5000) :
- setTimeout(() => {
-    setHelptipVisible(false);
-  }, 1000)
-}
+  const handlePointerLeave = () => {
+    helptipOpen
+      ? setTimeout(() => {
+          setHelptipVisible(false);
+          setHelptipOpen(false);
+        }, 5000)
+      : setTimeout(() => {
+          setHelptipVisible(false);
+        }, 1000);
+  };
 
-const handleClick =() =>{
-  if (!helptipOpen) {
-    setHelptipVisible(false);
-  setHelptipOpen(true);
-  }
-}
-
-const HelptipElement: FC<HelpTipConstructProps> = ({
-  placement,
-  content,
-  anchorEl,
-}) => {
-  let position = {};
-  let calculatedPlacement = placement;
-  const boundYLimit = 45;
-  const boundXLimit = 175;
-
-  if (anchorEl) {
-    const bounds = anchorEl.getBoundingClientRect();
-    const windowWidth = document.documentElement.offsetWidth;
-    const windowHeight = document.documentElement.offsetHeight;
-
-    switch (placement) {
-      case "bottom":
-        const calcPosition = bounds.top + bounds.height + boundYLimit;
-
-        if (calcPosition > windowHeight) {
-          calculatedPlacement = "top";
-        }
-        break;
-      case "left":
-        const calcInitPosition = bounds.left - boundXLimit;
-
-        if (calcInitPosition < 0) {
-          calculatedPlacement = "right";
-        }
-
-        break;
-      case "right":
-        const calcEndPosition = bounds.left + bounds.width + boundXLimit;
-
-        if (calcEndPosition > windowWidth) {
-          calculatedPlacement = "left";
-        }
-        break;
-      case "top":
-        if (bounds.top < boundYLimit) {
-          calculatedPlacement = "bottom";
-        }
-
-        break;
+  const handleClick = () => {
+    if (!helptipOpen) {
+      setHelptipVisible(false);
+      setHelptipOpen(true);
     }
+  };
 
-    switch (calculatedPlacement) {
-      case "bottom":
-        position = {
-          top: bounds.top + bounds.height + 10,
-          left: bounds.left + bounds.width / 2,
-        };
-        break;
-      case "left":
-        position = {
-          top: bounds.top + bounds.height / 2,
-          left: bounds.left - 12,
-        };
-        break;
-      case "right":
-        position = {
-          top: bounds.top + bounds.height / 2,
-          left: bounds.left + bounds.width + 12,
-        };
-        break;
-      case "top":
-        position = {
-          top: bounds.top - bounds.height / 2 - 10,
-          left: bounds.left + bounds.width / 2,
-        };
-        break;
-    }
-  }
+  const HelptipElement: FC<HelpTipConstructProps> = ({
+    placement,
+    content,
+    anchorEl,
+  }) => {
+    let position = {};
+    let calculatedPlacement = placement;
+    const boundYLimit = 45;
+    const boundXLimit = 175;
 
-  return (
-    <HelptipItem placement={calculatedPlacement} style={position}  onClick={handleClick}>
-      {content} 
-    </HelptipItem>
-  );
-};
+    if (anchorEl) {
+      const bounds = anchorEl.getBoundingClientRect();
+      const windowWidth = document.documentElement.offsetWidth;
+      const windowHeight = document.documentElement.offsetHeight;
 
-const HelptipTarget: FC<HelpTipConstructProps> = ({
-  placement,
-  anchorEl,
-}) => {
-  let position = {};
-  let calculatedPlacement = placement;
-  const boundYLimit = 45;
-  const boundXLimit = 175;
+      switch (placement) {
+        case "bottom":
+          const calcPosition = bounds.top + bounds.height + boundYLimit;
 
-  if (anchorEl) {
-    const bounds = anchorEl.getBoundingClientRect();
-    const windowWidth = document.documentElement.offsetWidth;
-    const windowHeight = document.documentElement.offsetHeight;
+          if (calcPosition > windowHeight) {
+            calculatedPlacement = "top";
+          }
+          break;
+        case "left":
+          const calcInitPosition = bounds.left - boundXLimit;
 
-    switch (placement) {
-      case "bottom":
-        const calcPosition = bounds.top + bounds.height + boundYLimit;
+          if (calcInitPosition < 0) {
+            calculatedPlacement = "right";
+          }
 
-        if (calcPosition > windowHeight) {
-          calculatedPlacement = "top";
-        }
-        break;
-      case "left":
-        const calcInitPosition = bounds.left - boundXLimit;
+          break;
+        case "right":
+          const calcEndPosition = bounds.left + bounds.width + boundXLimit;
 
-        if (calcInitPosition < 0) {
-          calculatedPlacement = "right";
-        }
+          if (calcEndPosition > windowWidth) {
+            calculatedPlacement = "left";
+          }
+          break;
+        case "top":
+          if (bounds.top < boundYLimit) {
+            calculatedPlacement = "bottom";
+          }
 
-        break;
-      case "right":
-        const calcEndPosition = bounds.left + bounds.width + boundXLimit;
+          break;
+      }
 
-        if (calcEndPosition > windowWidth) {
-          calculatedPlacement = "left";
-        }
-        break;
-      case "top":
-        if (bounds.top < boundYLimit) {
-          calculatedPlacement = "bottom";
-        }
-
-        break;
-    }
-
-    switch (calculatedPlacement) {
-      case "bottom":
-        position = {
-          top: bounds.top + bounds.height + 10,
-          left: bounds.left + bounds.width / 2,
-        };
-        break;
-      case "left":
-        position = {
-          top: bounds.top + bounds.height / 2,
-          left: bounds.left - 12,
-        };
-        break;
-      case "right":
-        position = {
-          top: bounds.top + bounds.height / 2,
-          left: bounds.left + bounds.width + 12,
-        };
-        break;
-      case "top":
-        position = {
-          top: bounds.top - bounds.height / 2 - 10,
-          left: bounds.left + bounds.width / 2,
-        };
-        break;
-    }
-  }
-
-  return (
-    <HelpTargetItem placement={calculatedPlacement}  style={position}  onClick={handleClick}>
-  <HelpIconFilled style={{width: 12, height: 12}}/>
-      </HelpTargetItem>
-  
-  );
-};
-
-
-function useOutsideAlerter(ref: any) {
-  useEffect(() => {
-    function handleClickOutside(event: any) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setHelptipOpen(false);
+      switch (calculatedPlacement) {
+        case "bottom":
+          position = {
+            top: bounds.top + bounds.height + 10,
+            left: bounds.left + bounds.width / 2,
+          };
+          break;
+        case "left":
+          position = {
+            top: bounds.top + bounds.height / 2,
+            left: bounds.left - 12,
+          };
+          break;
+        case "right":
+          position = {
+            top: bounds.top + bounds.height / 2,
+            left: bounds.left + bounds.width + 12,
+          };
+          break;
+        case "top":
+          position = {
+            top: bounds.top - bounds.height / 2 - 10,
+            left: bounds.left + bounds.width / 2,
+          };
+          break;
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [ref]);
-}
-const wrapperRef = useRef(null);
-useOutsideAlerter(wrapperRef);
+    return (
+      <HelptipItem
+        placement={calculatedPlacement}
+        style={position}
+        onClick={handleClick}
+      >
+        {content}
+      </HelptipItem>
+    );
+  };
+
+  const HelptipTarget: FC<HelpTipConstructProps> = ({
+    placement,
+    anchorEl,
+  }) => {
+    let position = {};
+    let calculatedPlacement = placement;
+    const boundYLimit = 45;
+    const boundXLimit = 175;
+
+    if (anchorEl) {
+      const bounds = anchorEl.getBoundingClientRect();
+      const windowWidth = document.documentElement.offsetWidth;
+      const windowHeight = document.documentElement.offsetHeight;
+
+      switch (placement) {
+        case "bottom":
+          const calcPosition = bounds.top + bounds.height + boundYLimit;
+
+          if (calcPosition > windowHeight) {
+            calculatedPlacement = "top";
+          }
+          break;
+        case "left":
+          const calcInitPosition = bounds.left - boundXLimit;
+
+          if (calcInitPosition < 0) {
+            calculatedPlacement = "right";
+          }
+
+          break;
+        case "right":
+          const calcEndPosition = bounds.left + bounds.width + boundXLimit;
+
+          if (calcEndPosition > windowWidth) {
+            calculatedPlacement = "left";
+          }
+          break;
+        case "top":
+          if (bounds.top < boundYLimit) {
+            calculatedPlacement = "bottom";
+          }
+
+          break;
+      }
+
+      switch (calculatedPlacement) {
+        case "bottom":
+          position = {
+            top: bounds.top + bounds.height + 10,
+            left: bounds.left + bounds.width / 2,
+          };
+          break;
+        case "left":
+          position = {
+            top: bounds.top + bounds.height / 2,
+            left: bounds.left - 12,
+          };
+          break;
+        case "right":
+          position = {
+            top: bounds.top + bounds.height / 2,
+            left: bounds.left + bounds.width + 12,
+          };
+          break;
+        case "top":
+          position = {
+            top: bounds.top - bounds.height / 2 - 10,
+            left: bounds.left + bounds.width / 2,
+          };
+          break;
+      }
+    }
+
+    return (
+      <HelpTargetItem
+        placement={calculatedPlacement}
+        style={position}
+        onClick={handleClick}
+      >
+        <HelpIconFilled style={{ width: 12, height: 12 }} />
+      </HelpTargetItem>
+    );
+  };
+
+  function useOutsideAlerter(ref: any) {
+    useEffect(() => {
+      function handleClickOutside(event: any) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setHelptipOpen(false);
+        }
+      }
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
 
   return (
     <Fragment>
       <TooltipWrapper
-      ref={wrapperRef}
-     
+        ref={wrapperRef}
         onPointerEnter={(event) => {
-          if (!helptipOpen)  {
-          setAnchorEl(event.currentTarget);
-          setHelptipVisible(true);
-        }
+          if (!helptipOpen) {
+            setAnchorEl(event.currentTarget);
+            setHelptipVisible(true);
+          }
         }}
         onMouseLeave={handlePointerLeave}
       >
-   
-        {helptipVisible && !helptipOpen &&
+        {helptipVisible &&
+          !helptipOpen &&
           createPortal(
             <HelptipTarget
               placement={placement}
@@ -450,20 +442,20 @@ useOutsideAlerter(wrapperRef);
             />,
             document.body,
           )}
-           {helptipOpen &&
+        {helptipOpen &&
           createPortal(
             <HelptipElement
               placement={placement}
-              content={ <BaseHelpTip className={"helpbox-container"} ref={wrapperRef}>
-              <Grid container>
-                  <Grid item xs={12} className={"helpText"}>
-                    {helptip}
+              content={
+                <BaseHelpTip className={"helpbox-container"} ref={wrapperRef}>
+                  <Grid container>
+                    <Grid item xs={12} className={"helpText"}>
+                      {helptip}
+                    </Grid>
                   </Grid>
-              
-              </Grid>
-            </BaseHelpTip>}
-             anchorEl={anchorEl}
-              
+                </BaseHelpTip>
+              }
+              anchorEl={anchorEl}
             />,
             document.body,
           )}
