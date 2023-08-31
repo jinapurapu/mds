@@ -207,6 +207,7 @@ const BaseHelpTip = styled.div(({ theme }) => ({
 }));
 
 export const HelpTip: FC<HelpTipProps> = ({
+  children,
   helptip,
   placement = "bottom",
 }) => {

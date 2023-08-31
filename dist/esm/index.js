@@ -54707,6 +54707,7 @@ var rA,
     };
   }),
   VN = function (e) {
+    e.children;
     var o = e.helptip,
       i = e.placement,
       s = void 0 === i ? "bottom" : i,

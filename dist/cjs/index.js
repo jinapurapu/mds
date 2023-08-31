@@ -50979,6 +50979,7 @@ var AC,
   (exports.HelpIcon = so),
   (exports.HelpIconFilled = zC),
   (exports.HelpTip = function (t) {
+    t.children;
     var a = t.helptip,
       r = t.placement,
       i = void 0 === r ? "bottom" : r,

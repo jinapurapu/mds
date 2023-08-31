@@ -1121,6 +1121,7 @@ interface AccordionContentProps {
 declare const Accordion: FC<AccordionProps>;
 
 interface HelpTipProps {
+  children: any;
   helptip: React__default.ReactElement;
   errorProps?: any;
   placement?: "bottom" | "left" | "right" | "top";
