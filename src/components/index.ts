@@ -63,8 +63,8 @@ export { default as ProgressBar } from "./ProgressBar/ProgressBar";
 export { default as FileSelector } from "./FileSelector/FileSelector";
 export { default as SizeChart } from "./SizeChart/SizeChart";
 export { default as Accordion } from "./Accordion/Accordion";
-
 export { default as HelpTip } from "./HelpTip/HelpTip";
+
 /*Icons*/
 export * from "./Icons";
 export * from "./Icons/SidebarMenus";
