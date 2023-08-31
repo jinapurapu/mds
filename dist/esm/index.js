@@ -54707,29 +54707,29 @@ var rA,
     };
   }),
   VN = function (e) {
-    e.children;
-    var o = e.helptip,
-      i = e.placement,
-      s = void 0 === i ? "bottom" : i,
-      c = a(null),
-      d = c[0],
-      u = c[1],
-      p = a(!1),
-      m = p[0],
-      h = p[1],
-      g = a(!1),
-      E = g[0],
-      b = g[1],
-      T = function () {
-        E || (h(!1), b(!0));
+    var o = e.children,
+      i = e.helptip,
+      s = e.placement,
+      c = void 0 === s ? "bottom" : s,
+      d = a(null),
+      u = d[0],
+      p = d[1],
+      m = a(!1),
+      h = m[0],
+      g = m[1],
+      E = a(!1),
+      b = E[0],
+      T = E[1],
+      v = function () {
+        b || (g(!1), T(!0));
       };
-    var v,
-      _ = l(null);
+    var _,
+      S = l(null);
     return (
       r(
         function () {
           function e(e) {
-            v.current && !v.current.contains(e.target) && b(!1);
+            _.current && !_.current.contains(e.target) && T(!1);
           }
           return (
             document.addEventListener("mousedown", e),
@@ -54738,7 +54738,7 @@ var rA,
             }
           );
         },
-        [(v = _)],
+        [(_ = S)],
       ),
       t.createElement(
         n,
@@ -54746,22 +54746,23 @@ var rA,
         t.createElement(
           ho,
           {
-            ref: _,
+            ref: S,
             onPointerEnter: function (e) {
-              E || (u(e.currentTarget), h(!0));
+              b || (p(e.currentTarget), g(!0));
             },
             onMouseLeave: function () {
-              E
+              b
                 ? setTimeout(function () {
-                    h(!1), b(!1);
+                    g(!1), T(!1);
                   }, 5e3)
                 : setTimeout(function () {
-                    h(!1);
+                    g(!1);
                   }, 1e3);
             },
           },
-          m &&
-            !E &&
+          o,
+          h &&
+            !b &&
             f(
               t.createElement(
                 function (e) {
@@ -54811,19 +54812,19 @@ var rA,
                   }
                   return t.createElement(
                     GN,
-                    { placement: o, style: r, onClick: T },
+                    { placement: o, style: r, onClick: v },
                     t.createElement(PA, { style: { width: 12, height: 12 } }),
                   );
                 },
                 {
-                  placement: s,
+                  placement: c,
                   content: t.createElement(PA, null),
-                  anchorEl: d,
+                  anchorEl: u,
                 },
               ),
               document.body,
             ),
-          E &&
+          b &&
             f(
               t.createElement(
                 function (e) {
@@ -54874,26 +54875,26 @@ var rA,
                   }
                   return t.createElement(
                     zN,
-                    { placement: i, style: o, onClick: T },
+                    { placement: i, style: o, onClick: v },
                     a,
                   );
                 },
                 {
-                  placement: s,
+                  placement: c,
                   content: t.createElement(
                     ZN,
-                    { className: "helpbox-container", ref: _ },
+                    { className: "helpbox-container", ref: S },
                     t.createElement(
                       br,
                       { container: !0 },
                       t.createElement(
                         br,
                         { item: !0, xs: 12, className: "helpText" },
-                        o,
+                        i,
                       ),
                     ),
                   ),
-                  anchorEl: d,
+                  anchorEl: u,
                 },
               ),
               document.body,

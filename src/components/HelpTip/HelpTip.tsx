@@ -433,6 +433,7 @@ export const HelpTip: FC<HelpTipProps> = ({
         }}
         onMouseLeave={handlePointerLeave}
       >
+        {children}
         {helptipVisible &&
           !helptipOpen &&
           createPortal(

@@ -50979,30 +50979,30 @@ var AC,
   (exports.HelpIcon = so),
   (exports.HelpIconFilled = zC),
   (exports.HelpTip = function (t) {
-    t.children;
-    var a = t.helptip,
-      r = t.placement,
-      i = void 0 === r ? "bottom" : r,
-      l = e.useState(null),
-      s = l[0],
-      c = l[1],
-      d = e.useState(!1),
-      u = d[0],
-      p = d[1],
-      m = e.useState(!1),
-      h = m[0],
-      f = m[1],
-      g = function () {
-        h || (p(!1), f(!0));
+    var a = t.children,
+      r = t.helptip,
+      i = t.placement,
+      l = void 0 === i ? "bottom" : i,
+      s = e.useState(null),
+      c = s[0],
+      d = s[1],
+      u = e.useState(!1),
+      p = u[0],
+      m = u[1],
+      h = e.useState(!1),
+      f = h[0],
+      g = h[1],
+      E = function () {
+        f || (m(!1), g(!0));
       };
-    var E,
-      b = e.useRef(null);
+    var b,
+      T = e.useRef(null);
     return (
-      (E = b),
+      (b = T),
       e.useEffect(
         function () {
           function e(e) {
-            E.current && !E.current.contains(e.target) && f(!1);
+            b.current && !b.current.contains(e.target) && g(!1);
           }
           return (
             document.addEventListener("mousedown", e),
@@ -51011,7 +51011,7 @@ var AC,
             }
           );
         },
-        [E],
+        [b],
       ),
       o.default.createElement(
         e.Fragment,
@@ -51019,22 +51019,23 @@ var AC,
         o.default.createElement(
           eo,
           {
-            ref: b,
+            ref: T,
             onPointerEnter: function (e) {
-              h || (c(e.currentTarget), p(!0));
+              f || (d(e.currentTarget), m(!0));
             },
             onMouseLeave: function () {
-              h
+              f
                 ? setTimeout(function () {
-                    p(!1), f(!1);
+                    m(!1), g(!1);
                   }, 5e3)
                 : setTimeout(function () {
-                    p(!1);
+                    m(!1);
                   }, 1e3);
             },
           },
-          u &&
-            !h &&
+          a,
+          p &&
+            !f &&
             n.createPortal(
               o.default.createElement(
                 function (e) {
@@ -51084,21 +51085,21 @@ var AC,
                   }
                   return o.default.createElement(
                     jC,
-                    { placement: r, style: a, onClick: g },
+                    { placement: r, style: a, onClick: E },
                     o.default.createElement(zC, {
                       style: { width: 12, height: 12 },
                     }),
                   );
                 },
                 {
-                  placement: i,
+                  placement: l,
                   content: o.default.createElement(zC, null),
-                  anchorEl: s,
+                  anchorEl: c,
                 },
               ),
               document.body,
             ),
-          h &&
+          f &&
             n.createPortal(
               o.default.createElement(
                 function (e) {
@@ -51149,26 +51150,26 @@ var AC,
                   }
                   return o.default.createElement(
                     $C,
-                    { placement: i, style: r, onClick: g },
+                    { placement: i, style: r, onClick: E },
                     n,
                   );
                 },
                 {
-                  placement: i,
+                  placement: l,
                   content: o.default.createElement(
                     WC,
-                    { className: "helpbox-container", ref: b },
+                    { className: "helpbox-container", ref: T },
                     o.default.createElement(
                       lr,
                       { container: !0 },
                       o.default.createElement(
                         lr,
                         { item: !0, xs: 12, className: "helpText" },
-                        a,
+                        r,
                       ),
                     ),
                   ),
-                  anchorEl: s,
+                  anchorEl: c,
                 },
               ),
               document.body,
