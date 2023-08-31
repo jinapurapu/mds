@@ -62,12 +62,9 @@ export { default as ValuePair } from "./ValuePair/ValuePair";
 export { default as ProgressBar } from "./ProgressBar/ProgressBar";
 export { default as FileSelector } from "./FileSelector/FileSelector";
 export { default as SizeChart } from "./SizeChart/SizeChart";
-<<<<<<< HEAD
 export { default as Accordion } from "./Accordion/Accordion";
 
-=======
 export { default as HelpTip } from "./HelpTip/HelpTip";
->>>>>>> a9779fa (Created files for helptip)
 /*Icons*/
 export * from "./Icons";
 export * from "./Icons/SidebarMenus";

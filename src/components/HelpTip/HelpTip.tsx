@@ -436,13 +436,6 @@ const HelptipTarget: FC<HelpTipConstructProps> = ({
   );
 };
 
-const tempHelpTip = 
-<Fragment>
-  <h1>I'm a helptip!
-    <br/>
-  <a href="https://min.io" target="self">Link to MinIO</a>
-  </h1>
-</Fragment>
 
 function useOutsideAlerter(ref: any) {
   useEffect(() => {
@@ -492,7 +485,7 @@ useOutsideAlerter(wrapperRef);
               content={ <BaseHelpTip className={"helpbox-container"} ref={wrapperRef}>
               <Grid container>
                   <Grid item xs={12} className={"helpText"}>
-                    {tempHelpTip}
+                    {helptip}
                   </Grid>
               
               </Grid>
