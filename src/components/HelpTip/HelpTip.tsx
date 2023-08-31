@@ -1,5 +1,5 @@
 // This file is part of MinIO Design System
-// Copyright (c) 2022 MinIO, Inc.
+// Copyright (c) 2023 MinIO, Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as published by
@@ -15,7 +15,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React, {
-  cloneElement,
   FC,
   Fragment,
   HTMLAttributes,
@@ -58,7 +57,7 @@ const TooltipWrapper = styled.span<HTMLAttributes<HTMLDivElement>>(
   `,
 );
 
-const TooltipItem = styled.div<HelpTipBuild>(({ theme, placement }) => {
+const HelptipItem = styled.div<HelpTipBuild>(({ theme, placement }) => {
   const tooltipArrowSize = "6px";
 
   const background = get(theme, "tooltip.background", "#737373");
@@ -347,15 +346,14 @@ const HelptipElement: FC<HelpTipConstructProps> = ({
   }
 
   return (
-    <TooltipItem placement={calculatedPlacement} style={position}  onClick={handleClick}>
+    <HelptipItem placement={calculatedPlacement} style={position}  onClick={handleClick}>
       {content} 
-    </TooltipItem>
+    </HelptipItem>
   );
 };
 
 const HelptipTarget: FC<HelpTipConstructProps> = ({
   placement,
-  content,
   anchorEl,
 }) => {
   let position = {};
@@ -429,7 +427,6 @@ const HelptipTarget: FC<HelpTipConstructProps> = ({
 
   return (
     <HelpTargetItem placement={calculatedPlacement}  style={position}  onClick={handleClick}>
-
   <HelpIconFilled style={{width: 12, height: 12}}/>
       </HelpTargetItem>
   
@@ -442,7 +439,6 @@ function useOutsideAlerter(ref: any) {
     function handleClickOutside(event: any) {
       if (ref.current && !ref.current.contains(event.target)) {
         setHelptipOpen(false);
-       // setHoverLock(false);
       }
     }
 
